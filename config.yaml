@@ -1,0 +1,43 @@
+# NEXUS configuration (YAML). Every value can be overridden from the CLI.
+capture:
+  interval: 3.0        # seconds between screen captures
+  min_change: 0.02     # min fraction of image-hash bits that must change
+  monitor: 0           # 0 = primary/active monitor
+
+ocr:
+  use_npu: true        # prefer QNN/DirectML when present, else CPU
+  # config_path: ""     # optional custom RapidOCR config.yaml
+
+context:
+  max_frames: 20       # rolling window size
+  text_budget: 3000    # chars of text kept per frame
+
+rules:
+  cooldown: 30.0       # seconds before the same alert can fire again
+  suppress: []         # e.g. ['personal_data', 'secret', 'dangerous_command']
+
+llm:
+  enabled: true
+  backend_order: ["onnx", "ollama", "llama_cpp"]  # first available wins
+  model: "phi-3.5-mini-instruct-q4"                # from Qualcomm AI Hub / HF
+  max_tokens: 220
+  no_llm_mode: true    # template fallback when no backend is present
+  ollama_model: "llama3.2"       # for the Ollama backend
+  ollama_url: "http://localhost:11434"
+  explain_max_tokens: 180        # hotkey Ctrl+Alt+E (streamed into a panel)
+  assist_max_tokens: 200         # hotkey Ctrl+Alt+A (streamed into a panel)
+
+ui:
+  theme: "system"
+  max_toasts: 3
+  toast_timeout_ms: 5000
+  always_on_top: true
+
+act:
+  enabled: false       # stretch milestone - off by default
+  max_steps: 3
+  emergency_hotkey: "ctrl+alt+q"
+
+demo:
+  assets_dir: "demo_assets"
+  window_title: "NEXUS Demo - sample editor"

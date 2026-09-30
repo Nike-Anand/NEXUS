@@ -1,0 +1,50 @@
+# NEXUS - on-device context-aware assistant.
+# Target: Windows 11 on ARM64 (Snapdragon X). Python 3.11/3.12.
+# Everything in this file must install on ARM64 (native or under emulation);
+# inline comments note the ARM64 caveats. See README for the full guide.
+
+# ---- Core ---------------------------------------------------------------
+numpy==2.4.6
+pillow==12.3.0
+PyYAML==6.0.3
+mss==10.2.0
+pygetwindow==0.0.9
+
+# ONNX Runtime. On ARM64 (Windows on ARM) install the Microsoft arm64 build:
+#   pip install onnxruntime --extra-index-url https://aiinfra.azureedge.net/onnxruntime/
+# For the Qualcomm NPU, replace it with onnxruntime-qnn (from Qualcomm AI Hub):
+#   pip install onnxruntime-qnn ... (see README; the "QNNExecutionProvider" is added)
+onnxruntime==1.30.0
+
+# OCR. NOTE: rapidocr pulls in opencv-python, which has no native win-arm64
+# wheel yet - it will install and run under x64 emulation on Snapdragon.
+rapidocr-onnxruntime==1.4.4
+opencv-python-headless==5.0.0.93
+
+# ---- GUI (M2) - stdlib Tkinter is used for the overlay to stay ARM64-clean.
+# PySide6 is optional and commented out because its wheels for arm64 can lag;
+# uncomment if you prefer it and it installs on your machine.
+# PySide6==6.8.1
+# 'keyboard' enables system-wide hotkeys (Ctrl+Alt+E / Ctrl+Alt+A). Without it
+# the hotkeys still work while the NEXUS control panel has focus, and the panel
+# always has Explain/Assist buttons. Optional - install only if needed.
+# keyboard==0.13.5
+
+# ---- Optional LLM backends (M3) ----------------------------------------
+# Only the backends you install are used; absent ones are skipped gracefully
+# and NEXUS falls back to a fully on-device, template-based "no-LLM mode".
+# - ollama: `pip install ollama`  (server is a separate system install)
+# - onnxruntime-genai (Qualcomm): install per Qualcomm AI Hub ARM64 docs.
+# - llama-cpp-python:   `pip install llama-cpp-python` (may need emulation)
+# ollama==0.4.7
+# onnxruntime-genai==0.5.0
+# llama-cpp-python==0.3.4
+# pyautogui==0.9.54      # only used by the optional Act mode (M6)
+
+# ---- Test / dev ---------------------------------------------------------
+pytest==9.1.1
+matplotlib==3.10.1      # used by scripts/benchmark.py chart only
+
+# NOTE FOR ARM64 USERS: opencv and matplotlib may fall back to x64 emulation.
+# If a package above refuses to install, check the README "ARM64 notes" table
+# and use the documented workaround rather than editing requirements blindly.

